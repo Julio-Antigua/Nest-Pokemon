@@ -15,6 +15,9 @@ import { PokemonService } from "./pokemon.service";
                 schema: PokemonSchema,
             }
         ])
+    ],
+    exports: [
+        MongooseModule
     ]
 })
 export class PokemonModule {}
