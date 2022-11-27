@@ -3,15 +3,17 @@ import { InjectModel } from '@nestjs/mongoose';
 import  axios, {AxiosInstance} from 'axios';
 import { Model } from 'mongoose';
 import { Pokemon } from 'src/pokemon/entities/pokemon.entity';
-import { PokeResponse } from '../../dist/seed/interfaces/poke-response.inteface';
+import { PokeResponse } from '../seed/interfaces/poke-response.interface';
 import { PokemonService } from '../pokemon/pokemon.service';
+import { AxiosAdapter } from 'src/common/adapters/axios.adapter';
 
 @Injectable()
 export class SeedService {
 
   constructor(
     @InjectModel(Pokemon.name)
-    private readonly pokemonModel: Model<Pokemon>
+    private readonly pokemonModel: Model<Pokemon>,
+    private readonly http: AxiosAdapter
   ) {}
 
   private readonly axios: AxiosInstance = axios;
@@ -20,7 +22,7 @@ export class SeedService {
 
     await this.pokemonModel.deleteMany({}); // delete * from pokemons;
 
-    const { data } = await this.axios.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=20');
+    const data = await this.http.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=100');
 
     const pokemonToInsert: {name: string, no: number}[] = [];
 
