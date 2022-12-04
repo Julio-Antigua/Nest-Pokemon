@@ -17,7 +17,6 @@ export class PokemonController{
     @Get()
     @HttpCode( HttpStatus.OK )
     FindAll(@Query() queryParameters: PaginationDto){
-        console.log({queryParameters})
         return this.pokemonService.FindAll(queryParameters);
     }
 
