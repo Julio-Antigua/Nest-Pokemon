@@ -38,3 +38,9 @@ http://localhost:3000/api/v2/pokemon
 ## Stack usado
 * MongoDB
 * NestJs
+
+# Notas
+```
+git commit --allow-empty -m "Tigger Heroku deply"
+git push heroku <master|main>
+```
